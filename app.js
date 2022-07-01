@@ -1,8 +1,19 @@
-const chalk = require('chalk');
-const getNotes = require('./notes.js')
-const yargs = require('yargs');
-const { string } = require('yargs');
+const chalk      = require('chalk');
+const getNotes   = require('./notes.js')
+const yargs      = require('yargs');
+const fs         = require('fs');
 
+const fileBuffer   = fs.readFileSync('sample-file.json')
+const parsedObject = JSON.parse(fileBuffer.toString())
+parsedObject.title = 'Updated Title'
+const sampleJson = JSON.stringify(parsedObject)
+fs.writeFileSync('sample-file.json',sampleJson)
+const updatedFileBuffer   = fs.readFileSync('sample-file.json')
+const updatedObject = JSON.parse(fileBuffer.toString())
+// console.log("sampleJson",updatedObject)
+// console.log("parsedObject",parsedObject)
+
+return;
 yargs.command({
     command: 'add',
     describe: 'Adding a command',
@@ -46,4 +57,5 @@ yargs.command({
         console.log('Read notes');
     }
 })
+
 yargs.parse()
